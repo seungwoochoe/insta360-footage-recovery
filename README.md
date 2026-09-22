@@ -1,16 +1,9 @@
 # Insta360 footage recovery
 
-Case-specific reference scripts for reconstructing fragmented Insta360 MOV/MP4
-files from residual exFAT FAT chains after PhotoRec has found the file starts.
-
-Read the accompanying case study: [Recovering missing footage from an
-Insta360
-camera](https://www.seungwoochoe.com/blog/recovering-missing-footage-from-an-insta360-camera/).
-
-These scripts were written for one 512 GB card. They are not a universal repair
-tool and should not be run blindly against another card. Review the source,
-confirm the exFAT partition start, and inspect the generated CSV files before
-extracting anything.
+Case-specific scripts for rebuilding fragmented Insta360 MOV/MP4 files from
+residual exFAT FAT chains after PhotoRec finds their starts. Written for one
+512 GB card, not general repair: review the source, verify the partition start,
+and inspect the CSV reports before extracting. See the [case study](https://www.seungwoochoe.com/blog/recovering-missing-footage-from-an-insta360-camera/).
 
 ## Safety
 
@@ -31,30 +24,16 @@ extracting anything.
 - PhotoRec output retaining names such as `f123456_ftyp.mov`
 - A recovery destination on another physical disk
 
-TestDisk and PhotoRec can be installed on macOS with:
-
-```sh
-brew install testdisk
-```
+On macOS, install TestDisk/PhotoRec with `brew install testdisk`.
 
 ## 1. Identify and unmount the card
 
-A card in a Mac's built-in SD slot may be classified as internal:
+Identify the card (a built-in SD slot may be internal), verify its capacity and
+partition layout, then unmount it without ejecting:
 
 ```sh
 diskutil list internal physical
-```
-
-For an external reader, try:
-
-```sh
 diskutil list external physical
-```
-
-Confirm the identifier, capacity, and partition layout, then unmount the whole
-card without ejecting it:
-
-```sh
 diskutil unmountDisk /dev/diskN
 ```
 
